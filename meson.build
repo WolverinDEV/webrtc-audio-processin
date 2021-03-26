@@ -40,14 +40,26 @@ os_deps = []
 have_posix = false
 have_win = false
 
-absl_dep = dependency('absl', method : 'cmake',
+absl_dep = dependency('absl', 
   modules : [
     'absl::base',
     'absl::flags_parse',
     'absl::strings',
     'absl::synchronization',
-  ]
+  ],
+  required: false
 )
+
+if not absl_dep.found() 
+	cmake = import('cmake')
+    absl_proj = cmake.subproject('abseil-cpp') 
+	absl_dep = [
+		absl_proj.dependency('base'),
+		absl_proj.dependency('flags_parse'),
+		absl_proj.dependency('strings'),
+		absl_proj.dependency('synchronization')
+	]
+endif
 
 if ['darwin', 'ios'].contains(host_system)
   os_cflags = ['-DWEBRTC_MAC']
@@ -67,6 +79,7 @@ elif host_system == 'linux'
   have_posix = true
 elif host_system == 'windows'
   platform_cflags += ['-DWEBRTC_WIN', '-D_WIN32', '-U__STRICT_ANSI__']
+  platform_cflags += ['-DNOMINMAX', '-D_USE_MATH_DEFINES']
   os_deps += [cc.find_library('winmm')]
   have_win = true
 endif

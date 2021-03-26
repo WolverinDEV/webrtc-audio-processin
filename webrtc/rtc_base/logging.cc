@@ -15,7 +15,6 @@
 #if RTC_LOG_ENABLED()
 
 #if defined(WEBRTC_WIN)
-#include <windows.h>
 #if _MSC_VER < 1900
 #define snprintf _snprintf
 #endif
@@ -50,6 +49,10 @@ static const int kMaxLogLineSize = 1024 - 60;
 #include "rtc_base/synchronization/mutex.h"
 #include "rtc_base/thread_annotations.h"
 #include "rtc_base/time_utils.h"
+
+#if defined(WEBRTC_WIN)
+#include <windows.h>
+#endif
 
 namespace rtc {
 namespace {
