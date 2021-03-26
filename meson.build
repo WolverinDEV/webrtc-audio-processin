@@ -51,14 +51,14 @@ absl_dep = dependency('absl',
 )
 
 if not absl_dep.found() 
-	cmake = import('cmake')
+    cmake = import('cmake')
     absl_proj = cmake.subproject('abseil-cpp') 
-	absl_dep = [
-		absl_proj.dependency('base'),
-		absl_proj.dependency('flags_parse'),
-		absl_proj.dependency('strings'),
-		absl_proj.dependency('synchronization')
-	]
+    absl_dep = [
+        absl_proj.dependency('base'),
+        absl_proj.dependency('flags_parse'),
+        absl_proj.dependency('strings'),
+        absl_proj.dependency('synchronization')
+    ]
 endif
 
 if ['darwin', 'ios'].contains(host_system)
