@@ -3,7 +3,7 @@ project('webrtc-audio-processing', 'c', 'cpp',
   meson_version : '>= 0.54',
   default_options : [ 'warning_level=1',
                       'buildtype=debugoptimized',
-                      'c_std=c11',
+                      'c_std=gnu99',
                       'cpp_std=c++14',
                     ]
 )
