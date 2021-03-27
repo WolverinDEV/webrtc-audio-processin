@@ -47,19 +47,8 @@ absl_dep = dependency('absl',
     'absl::strings',
     'absl::synchronization',
   ],
-  required: false
+  required: true
 )
-
-if not absl_dep.found() 
-    cmake = import('cmake')
-    absl_proj = cmake.subproject('abseil-cpp') 
-    absl_dep = [
-        absl_proj.dependency('base'),
-        absl_proj.dependency('flags_parse'),
-        absl_proj.dependency('strings'),
-        absl_proj.dependency('synchronization')
-    ]
-endif
 
 if ['darwin', 'ios'].contains(host_system)
   os_cflags = ['-DWEBRTC_MAC']
